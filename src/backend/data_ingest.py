@@ -1,6 +1,5 @@
 import json
 
-import mysql.connector
 import numpy as np
 import pandas as pd
 import transactions
@@ -67,7 +66,3 @@ def ingest_new_transactions():
     transactions_df = pd.concat([transactions_df, new_transactions], ignore_index=True)
 
     transactions.write_to_csv(transactions_df)
-
-
-def write_to_sql():
-    cnx = mysql.connector.connect(**load_sql_cfg())

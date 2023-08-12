@@ -1,7 +1,4 @@
-import categories
 import flask
-import transactions
-from flask import request
 
 app = flask.Flask(__name__)
 
@@ -13,7 +10,6 @@ def hello():
 
 @app.route("/transactions", methods=["GET"])
 def query_transactions():
-    args = request.args
     pass
 
 
