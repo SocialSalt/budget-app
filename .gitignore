@@ -4,7 +4,6 @@
 *.DS_Store
 *.cache
 *.pyc
-*.json
 *.png
 *.npy
 *.pkl
@@ -28,10 +27,6 @@ __pycache__
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
 # production
 /build
 
@@ -46,9 +41,6 @@ yarn-error.log*
 
 # local env files
 .env*.local
-
-# vercel
-.vercel
 
 # typescript
 *.tsbuildinfo
