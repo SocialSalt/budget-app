@@ -1,17 +1,16 @@
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import Typography from "@mui/material/Typography"
+import * as React from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-    tabName: string;
-    hidden?: boolean;
-  }
-  
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+  tabName: string;
+  hidden?: boolean;
+}
 
 interface TabBoxProps {
   children?: React.ReactNode;
@@ -19,19 +18,18 @@ interface TabBoxProps {
   tabNames: string[];
 }
 
-
 function getTabProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`
-  }
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
 }
 
 function getTabPanelProps(index: number) {
   return {
     id: `simple-tabpanel-${index}`,
-    "aria-labelledby": `simple-tab-${index}`
-  }
+    "aria-labelledby": `simple-tab-${index}`,
+  };
 }
 
 function CustomTabPanel(props: TabPanelProps) {
@@ -45,33 +43,36 @@ function CustomTabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p:3 }}>
+        <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
-      </div>
+    </div>
   );
 }
 
-
 export default function TabBox(tabBoxProps: TabBoxProps) {
   const { children, numTabs, tabNames, ...other } = tabBoxProps;
-  const [value, setValue] = React.useState(0)
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          {tabNames.map( (tabName, index) => (
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          {tabNames.map((tabName, index) => (
             <Tab label={tabName} {...getTabProps(index)} />
           ))}
         </Tabs>
       </Box>
-      {tabNames.map( (tabName, index)=> (
+      {tabNames.map((tabName, index) => (
         <CustomTabPanel tabName={tabName} value={value} index={index}>
           {index}
         </CustomTabPanel>
@@ -79,5 +80,3 @@ export default function TabBox(tabBoxProps: TabBoxProps) {
     </Box>
   );
 }
-
-
