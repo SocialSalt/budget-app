@@ -20,14 +20,14 @@ interface TableProps {
 
 export default function DataTable(props: TableProps) {
   const { columnNames, rows } = props;
-  console.log(columnNames)
-  console.log(rows)
+  console.log(columnNames);
+  console.log(rows);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            {columnNames.map(columnName => (
+            {columnNames.map((columnName) => (
               <TableCell>{columnName}</TableCell>
             ))}
             {/* <TableCell>Dessert (100g serving)</TableCell>

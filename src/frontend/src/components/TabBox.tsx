@@ -36,15 +36,13 @@ function getTabPanelProps(index: number) {
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, tabName, ...other } = props;
   // use tabName to get the right page to load
-  const test_row = DataTable(
-    {
-      columnNames: [tabName, "col_1", "col_2"],
-      rows: [
-        [tabName + " val 1", "value 1", "value 2"],
-        [tabName + " val 2", "value 3", "value 4"]
-      ]
-    }
-  )
+  const test_row = DataTable({
+    columnNames: [tabName, "col_1", "col_2"],
+    rows: [
+      [tabName + " val 1", "value 1", "value 2"],
+      [tabName + " val 2", "value 3", "value 4"],
+    ],
+  });
   return (
     <div
       role="tabpanel"
