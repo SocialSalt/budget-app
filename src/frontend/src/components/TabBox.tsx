@@ -40,8 +40,8 @@ function CustomTabPanel(props: TabPanelProps) {
     {
       columnNames: [tabName, "col_1", "col_2"],
       rows: [
-        {[tabName]: tabName + " val 1", col_1: "value 1", col_2: "value 2"},
-        {[tabName]: tabName + " val 2", col_1: "value 3", col_2: "value 4"}
+        [tabName + " val 1", "value 1", "value 2"],
+        [tabName + " val 2", "value 3", "value 4"]
       ]
     }
   )

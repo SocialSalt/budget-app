@@ -15,7 +15,7 @@ import Paper from "@mui/material/Paper";
 interface TableProps {
   children?: React.ReactNode;
   columnNames: string[];
-  rows: object[];
+  rows: string[][];
 }
 
 export default function DataTable(props: TableProps) {
@@ -43,8 +43,8 @@ export default function DataTable(props: TableProps) {
               // key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              {columnNames.map(columnName => (
-                <TableCell>{columnName}</TableCell>
+              {columnNames.map((_, index) => (
+                <TableCell>{row[index]}</TableCell>
               ))}
               {/* <TableCell component="th" scope="row">
                 {row.name}
