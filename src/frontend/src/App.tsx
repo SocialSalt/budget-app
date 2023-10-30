@@ -1,6 +1,7 @@
-import logo from "./logo.svg";
-import "./App.css";
-import TabBox from "./components/TabBox.tsx";
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import TabBox from './components/TabBox';
 
 function App() {
   return (

@@ -44,7 +44,7 @@ export default function DataTable(props: TableProps) {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               {columnNames.map(columnName => (
-                <TableCell>{row[columnName]}</TableCell>
+                <TableCell>{columnName}</TableCell>
               ))}
               {/* <TableCell component="th" scope="row">
                 {row.name}
