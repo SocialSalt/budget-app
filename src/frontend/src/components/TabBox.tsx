@@ -3,6 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import DataTable from "./DataTable.tsx";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -35,6 +36,15 @@ function getTabPanelProps(index: number) {
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, tabName, ...other } = props;
   // use tabName to get the right page to load
+  const test_row = DataTable(
+    {
+      columnNames: [tabName, "col_1", "col_2"],
+      rows: [
+        {[tabName]: tabName + " val 1", col_1: "value 1", col_2: "value 2"},
+        {[tabName]: tabName + " val 2", col_1: "value 3", col_2: "value 4"}
+      ]
+    }
+  )
   return (
     <div
       role="tabpanel"
@@ -44,7 +54,8 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {test_row}
+          {/* <Typography>{children}</Typography> */}
         </Box>
       )}
     </div>
