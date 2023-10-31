@@ -1,28 +1,27 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import TabBox from "./components/TabBox";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
   },
 });
 
 function App() {
   return (
     <ThemeProvider theme={darkTheme}>
-    <CssBaseline />
-    <div className="App">
-      <div>
-        <TabBox
-          numTabs={3}
-          tabNames={["overview", "budget", "transactions", "categories"]}
-        />
+      <CssBaseline />
+      <div className="App">
+        <div>
+          <TabBox
+            numTabs={3}
+            tabNames={["overview", "budget", "transactions", "categories"]}
+          />
+        </div>
       </div>
-    </div>
     </ThemeProvider>
   );
 }

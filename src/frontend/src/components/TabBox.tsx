@@ -4,6 +4,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import DataTable from "./DataTable";
+import TransactionsPage from "./TransactionsPage";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -21,19 +22,19 @@ interface TabBoxProps {
 
 function getTabProps(index: number) {
   return {
-    id: `simple-tab-${index}`,
+    key: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
 function getTabPanelProps(index: number) {
   return {
-    id: `simple-tabpanel-${index}`,
+    key: `simple-tabpanel-${index}`,
     "aria-labelledby": `simple-tab-${index}`,
   };
 }
 
-function CustomTabPanel(props: TabPanelProps) {
+function TabPanel(props: TabPanelProps) {
   const { children, value, index, tabName, ...other } = props;
   // use tabName to get the right page to load
   const test_row = DataTable({
@@ -43,6 +44,13 @@ function CustomTabPanel(props: TabPanelProps) {
       [tabName + " val 2", "value 3", "value 4"],
     ],
   });
+  var childItem;
+  if (tabName !== "transactions" ){
+      childItem = <Box sx={{ p: 3 }}>{test_row}</Box>
+  }
+  else {
+    childItem = <TransactionsPage />
+  }
   return (
     <div
       role="tabpanel"
@@ -50,12 +58,7 @@ function CustomTabPanel(props: TabPanelProps) {
       {...getTabPanelProps(index)}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {test_row}
-          {/* <Typography>{children}</Typography> */}
-        </Box>
-      )}
+      {value === index && childItem}
     </div>
   );
 }
@@ -82,9 +85,9 @@ export default function TabBox(tabBoxProps: TabBoxProps) {
         </Tabs>
       </Box>
       {tabNames.map((tabName, index) => (
-        <CustomTabPanel tabName={tabName} value={value} index={index}>
+      <TabPanel tabName={tabName} value={value} index={index} {...getTabPanelProps(index)}>
           {index}
-        </CustomTabPanel>
+        </TabPanel>
       ))}
     </Box>
   );
