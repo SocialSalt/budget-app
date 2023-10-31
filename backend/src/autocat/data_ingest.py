@@ -4,13 +4,7 @@ import numpy as np
 import pandas as pd
 import backend.src.transactions as transactions
 
-SQL_CONFIG_FILE = "data/sql_config.json"
 AUTO_CAT_RULES = "data/auto_cat_rules.json"
-
-
-def load_sql_cfg():
-    with open(SQL_CONFIG_FILE, "r") as in_file:
-        return json.load(in_file)
 
 
 class AutoCatRule:
@@ -29,16 +23,25 @@ class AutoCatRule:
         self.amount_max = amount_max
 
     def match(self, df: pd.DataFrame):
-        uncat_mask = df.loc[:, "Category"].isna()
+        null_cat_mask = df.loc[:, "Category"].isna()
         descr_match = df.loc[:, "Description"].str.contains(
             "|".join(self.description_contains)
         )
         acct_match = df.loc[:, "Account"].str.contains("|".join(self.account_contains))
         ammt_match = self.amount_min <= df.loc[:, "Amount"] <= self.amount_max
 
-        df.loc[uncat_mask & descr_match & acct_match & ammt_match] = self.category
+        df.loc[null_cat_mask & descr_match & acct_match & ammt_match] = self.category
 
         return df
+    
+    def to_json(self):
+        return {
+            "category": self.category,
+            "description_contains": self.description_contains,
+            "account_contains": self.account_contains,
+            "amount_min": self.amount_min,
+            "amount_max": self.amount_max
+        }
 
 
 def load_autocat_rules():
@@ -46,6 +49,10 @@ def load_autocat_rules():
         rules = json.load(in_file)
     return [AutoCatRule(**rule) for rule in rules]
 
+def save_autocat_rules(rules):
+    with open(AUTO_CAT_RULES, "w") as out_file:
+        json.dump([rule.to_json() for rule in rules], out_file)
+        
 
 def auto_cat(df: pd.DataFrame):
     rules = load_autocat_rules()

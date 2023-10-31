@@ -2,7 +2,8 @@ from enum import Enum
 from functools import cache
 
 RAW_TRANSACTIONS_CSV = "data/budget-app - Transactions.csv"
-TRANSACTIONS_CSV = "data/transactions.csv"
+# TRANSACTIONS_CSV = "data/transactions.csv"
+TRANSACTIONS_CSV = "data/test_data.csv"
 
 RAW_CATEGORIES_CSV = "data/budget-app - Categories.csv"
 CATEGORIES_CSV = "data/categories.csv"

@@ -1,5 +1,5 @@
 import pandas as pd
-from backend.src.utils import *
+from utils import *
 
 
 def load_raw_categories(

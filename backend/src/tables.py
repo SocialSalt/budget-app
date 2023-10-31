@@ -1,7 +1,7 @@
-import backend.src.categories as categories
+import categories as categories
 import pandas as pd
-import backend.src.transactions as transactions
-from backend.src.utils import *
+import transactions as transactions
+from utils import *
 
 
 def group_tables(income_df, expense_df) -> dict:

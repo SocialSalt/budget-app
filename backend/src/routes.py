@@ -1,16 +1,23 @@
 import flask
+from transactions import get_rows_by_month, get_rows_by_year, get_rows_by_month_and_year, TRANSACTIONS
 
 app = flask.Flask(__name__)
 
 
-@app.route("/hello")
-def hello():
-    return "hello world\n"
-
-
-@app.route("/transactions", methods=["GET"])
-def query_transactions():
-    pass
+@app.route("/transactions/<int:year>/<int:month>", methods=["GET"])
+def query_transactions(year, month):
+    if year == 0 and month == 0:
+        result_df = TRANSACTIONS
+    elif month == 0:
+        result_df = get_rows_by_year(TRANSACTIONS, year)
+    elif year == 0:
+        result_df = get_rows_by_month(TRANSACTIONS, month)
+    else:
+        result_df = get_rows_by_month_and_year(TRANSACTIONS, month, year)
+    columns = result_df.columns.values.tolist()
+    index = result_df.index.values.tolist()
+    rows = result_df.values.tolist()
+    return {"columns": columns, "index": index, "rows": rows}
 
 
 @app.route("/tables/income", methods=["GET"])
@@ -37,7 +44,3 @@ def get_expense_table():
 @app.route("/budgets", methods=["GET"])
 def query_budgets():
     pass
-
-
-if __name__ == "__main__":
-    app.run(debug=True, port=8000)
