@@ -2,7 +2,7 @@ from datetime import datetime
 from functools import cache
 
 import pandas as pd
-from utils import *
+from backend.src.utils import *
 
 
 def load_raw_transactions(filename=RAW_TRANSACTIONS_CSV) -> pd.DataFrame:

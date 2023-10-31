@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import *
+from backend.src.utils import *
 
 
 def load_budgets(filename=BUDGETS_CSV):

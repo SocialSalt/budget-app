@@ -16,9 +16,6 @@ license = "GPL-3.0-or-later"
 authors = [
   "Ethan Walker <ethan.walker830@gmail.com>"
 ]
-packages = [
-  { include = "backend", from = "src" }
-]
 
 [tool.poetry.dependencies]
 python = "^3.10"

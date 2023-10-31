@@ -2,7 +2,7 @@ import json
 
 import numpy as np
 import pandas as pd
-import transactions
+import backend.src.transactions as transactions
 
 SQL_CONFIG_FILE = "data/sql_config.json"
 AUTO_CAT_RULES = "data/auto_cat_rules.json"
