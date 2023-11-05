@@ -1,8 +1,9 @@
 import flask
+from flask_cors import CORS
 from transactions import get_rows_by_month, get_rows_by_year, get_rows_by_month_and_year, TRANSACTIONS
 
 app = flask.Flask(__name__)
-
+CORS(app)
 
 @app.route("/transactions/<int:year>/<int:month>", methods=["GET"])
 def query_transactions(year, month):
