@@ -1,6 +1,6 @@
-module budget-app/go-backend
+module go-backend
 
-go 1.22
+go 1.21
 
 require (
 	gorm.io/driver/sqlite v1.5.5
