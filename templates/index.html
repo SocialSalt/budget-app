@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+		<title>Stopwatch</title>
+		<link rel="stylesheet" href="assets/styles.css" type="text/css">
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+	</head>
+
+	<body>
+        <div class="title">Test <span id="time">{{ .Time }}</span>title</div>
+		<div class="buttons">
+			<button hx-post="/start/" hx-swap="none" id="start" type="button">Test Button</button>
+		</div>
+	</body>
+</html>
