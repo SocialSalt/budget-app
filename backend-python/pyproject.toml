@@ -1,0 +1,28 @@
+[project]
+name = "budget-app"
+version = "0.0.1"
+description = "small budget app"
+requires-python = ">=3.10"
+license = {file = "LICENSE.txt"}
+authors = [
+  {name = "Ethan Walker", email="ethan.walker830@gmail.com"}
+]
+
+[tool.poetry]
+name = "budget-app"
+version = "0.0.1"
+description = "small budget app"
+license = "GPL-3.0-or-later"
+authors = [
+  "Ethan Walker <ethan.walker830@gmail.com>"
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^2.3"
+pandas = "^1.4"
+flask-cors = "^4.0.0"
+
+[tool.black]
+target-version = ['py310']
+line-length = 88
