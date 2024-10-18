@@ -57,8 +57,6 @@ func csvToTransactions(data [][]string) ([]models.Transaction, error) {
 					return nil, err
 				}
 				t.Date = d
-				t.Month = d.Month()
-				_, t.Week = d.ISOWeek()
 			case "Company":
 				t.Company = line[j]
 			case "Category":
@@ -66,7 +64,8 @@ func csvToTransactions(data [][]string) ([]models.Transaction, error) {
 			case "Amount":
 				s := strings.ReplaceAll(line[j], ",", "")
 				s = strings.ReplaceAll(s, "$", "")
-				a, err := strconv.ParseFloat(s, 64)
+				s = strings.ReplaceAll(s, ".", "")
+				a, err := strconv.ParseInt(s, 10, 64)
 				if err != nil {
 					return nil, err
 				}
@@ -75,8 +74,6 @@ func csvToTransactions(data [][]string) ([]models.Transaction, error) {
 				t.AccountNumber = line[j]
 			case "Institution":
 				t.Institution = line[j]
-			case "CheckNumber":
-				t.CheckNumber = line[j]
 			case "FullDescription":
 				t.FullDescription = line[j]
 			}
