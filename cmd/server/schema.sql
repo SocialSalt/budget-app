@@ -1,13 +1,13 @@
 CREATE TABLE IF NOT EXISTS transactions (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	date NUMERIC,
+	date DATETIME,
 	company TEXT,
 	category TEXT,
 	amount INTEGER,
 	account_number TEXT,
 	institution TEXT,
 	full_description TEXT,
-	date_added NUMERIC
+	date_added DATETIME
 );
 CREATE TABLE IF NOT EXISTS budgets (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS budgets (
 );
 CREATE TABLE IF NOT EXISTS balances (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	date NUMERIC,
+	date DATETIME,
 	account TEXT,
 	account_number TEXT,
 	account_id TEXT,
@@ -27,5 +27,5 @@ CREATE TABLE IF NOT EXISTS balances (
 	institution TEXT,
 	account_type TEXT,
 	class TEXT,
-	date_added NUMERIC
+	date_added DATETIME
 );
