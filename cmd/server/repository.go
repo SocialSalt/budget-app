@@ -7,8 +7,6 @@ import (
 	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
-	// "log"
-	// "os"
 )
 
 type TransactionRepo interface {
