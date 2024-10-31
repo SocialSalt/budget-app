@@ -54,7 +54,7 @@ func (r *TransactionRepoProvider) ListTransactions(ctx context.Context, tf Trans
 	}
 	defer tx.Rollback()
 
-	wheres := make([]string, 0, 5)
+	wheres := make([]string, 0, 6)
 
 	if tf.Category != nil {
 		wheres = append(wheres, fmt.Sprintf("category = '%s'", *tf.Category))
