@@ -5,7 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/socialsalt/budget-app/cmd/server"
+	"github.com/socialsalt/budget-app/internal/server"
+	"github.com/stretchr/testify/assert"
 )
 
 var now time.Time = time.Now()
@@ -56,10 +57,10 @@ func TestCreateTransactions(t *testing.T) {
 	transactionRepo := server.TransactionRepoProvider{DB: db}
 
 	transactions, err := transactionRepo.CreateTransactions(context.TODO(), testTransactions)
-	ok(t, err)
-	assert(t, transactions[0].ID == 1, "failed to create transaction correctly")
-	assert(t, transactions[1].ID == 2, "failed to create transaction correctly")
-	assert(t, transactions[2].Category == "", "failed to create transaction correctly")
+	assert.NoError(t, err)
+	assert.Equal(t, int64(1), transactions[0].ID, "failed to create transaction correctly")
+	assert.Equal(t, int64(2), transactions[1].ID, "failed to create transaction correctly")
+	assert.Equal(t, "", transactions[2].Category, "failed to create transaction correctly")
 }
 
 func TestListTransactions(t *testing.T) {
@@ -67,15 +68,15 @@ func TestListTransactions(t *testing.T) {
 	transactionRepo := server.TransactionRepoProvider{DB: db}
 
 	_, err := transactionRepo.CreateTransactions(context.TODO(), testTransactions)
-	ok(t, err)
+	assert.NoError(t, err)
 
 	miscCat := "misc"
 	tf := server.TransactionFilter{
 		Category: &miscCat,
 	}
 	transactions, err := transactionRepo.ListTransactions(context.TODO(), tf)
-	assert(t, len(transactions) == 1, "Failed to get only misc cat")
-	assert(t, transactions[0].Category == "misc", "Failed to get only misc cat")
+	assert.Equal(t, 1, len(transactions), "Failed to get only misc cat")
+	assert.Equal(t, "misc", transactions[0].Category, "Failed to get only misc cat")
 
 	var minAmount int64 = 11
 	var maxAmount int64 = 123450
@@ -84,8 +85,8 @@ func TestListTransactions(t *testing.T) {
 		MaxAmount: &maxAmount,
 	}
 	transactions, err = transactionRepo.ListTransactions(context.TODO(), tf)
-	assert(t, len(transactions) == 1, "Failed to filter by min or max amount")
-	assert(t, transactions[0].Amount == 789, "Failed to filter by min or max amount")
+	assert.Equal(t, 1, len(transactions), "Failed to filter by min or max amount")
+	assert.Equal(t, int64(789), transactions[0].Amount, "Failed to filter by min or max amount")
 
 	var after time.Time = time.Now().Add(-1 * time.Hour)
 	var before time.Time = time.Now().Add(time.Hour)
@@ -94,10 +95,10 @@ func TestListTransactions(t *testing.T) {
 		EndDate:   &before,
 	}
 	transactions, err = transactionRepo.ListTransactions(context.TODO(), tf)
-	assert(t, len(transactions) == 1, "Failed to filter by time")
-	assert(t, transactions[0].Date.Sub(now) == 0, "Failed to filter by time")
+	assert.Equal(t, 1, len(transactions), "Failed to filter by time")
+	assert.Equal(t, time.Duration(0, transactions[0].Date.Sub(now), "Failed to filter by time")
 
 	tf = server.TransactionFilter{}
 	transactions, err = transactionRepo.ListTransactions(context.TODO(), tf)
-	assert(t, len(transactions) == 4, "Failed to list all")
+	assert.Equal(t, 4, len(transactions), "Failed to list all")
 }

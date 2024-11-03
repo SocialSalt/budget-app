@@ -11,7 +11,7 @@ type TransactionLogic interface {
 }
 
 type TransactionLogicProvider struct {
-	r TransactionRepo
+	TransactionRepo TransactionRepo
 }
 
 func (t *TransactionLogicProvider) CreateTransactionsFromCVS(ctx context.Context, filepath string) ([]Transaction, error) {
@@ -29,7 +29,7 @@ func (t *TransactionLogicProvider) CreateTransactionsFromCVS(ctx context.Context
 	if err != nil {
 		return nil, err
 	}
-	transactions, err = t.r.CreateTransactions(ctx, transactions)
+	transactions, err = t.TransactionRepo.CreateTransactions(ctx, transactions)
 	if err != nil {
 		return nil, err
 	}

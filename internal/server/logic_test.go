@@ -5,13 +5,14 @@ import (
 	"testing"
 
 	"github.com/socialsalt/budget-app/internal/server"
+	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
 )
 
 func SetUpTransLogicProv(ctrl *gomock.Controller) server.TransactionLogicProvider {
 
 	r := server.NewMockTransactionRepo(ctrl)
-	return server.TransactionLogicProvider{R: r}
+	return server.TransactionLogicProvider{TransactionRepo: r}
 }
 
 func TestCreateTransactionsFromCSV(t *testing.T) {
@@ -22,7 +23,6 @@ func TestCreateTransactionsFromCSV(t *testing.T) {
 	testFilePath := "./test_transactions.cvs"
 	transactions, err := tl.CreateTransactionsFromCVS(context.TODO(), testFilePath)
 
-	ok(t, err)
-	assert(t, len(transactions) == 0, "")
-
+	assert.NoError(t, err)
+	assert.Equal(t, 0, len(transactions), "")
 }
