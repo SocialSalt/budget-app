@@ -96,7 +96,7 @@ func TestListTransactions(t *testing.T) {
 	}
 	transactions, err = transactionRepo.ListTransactions(context.TODO(), tf)
 	assert.Equal(t, 1, len(transactions), "Failed to filter by time")
-	assert.Equal(t, time.Duration(0, transactions[0].Date.Sub(now), "Failed to filter by time")
+	assert.Equal(t, time.Duration(0), transactions[0].Date.Sub(now), "Failed to filter by time")
 
 	tf = server.TransactionFilter{}
 	transactions, err = transactionRepo.ListTransactions(context.TODO(), tf)
