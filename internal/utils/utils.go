@@ -1,9 +1,11 @@
-package server
+package utils
 
 import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/socialsalt/budget-app/internal/model"
 )
 
 func ParseDate(rawDate string) (time.Time, error) {
@@ -23,14 +25,14 @@ func ParseDate(rawDate string) (time.Time, error) {
 	return d, nil
 }
 
-func ParseTransactionCSV(data [][]string) ([]Transaction, error) {
-	transactions := make([]Transaction, len(data))
+func ParseTransactionCSV(data [][]string) ([]model.Transaction, error) {
+	transactions := make([]model.Transaction, len(data))
 	headers := data[0]
 	for i, line := range data {
 		if i == 0 {
 			continue
 		}
-		t := Transaction{}
+		t := model.Transaction{}
 		for j, header := range headers {
 			switch header {
 			case "Date":

@@ -1,4 +1,5 @@
-package server
+//go:generate mockgen -source=data_access.go -destination=../../mocks/data_access.go -package=mocks
+package dataaccess
 
 import (
 	"context"
@@ -7,18 +8,19 @@ import (
 	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/socialsalt/budget-app/internal/model"
 )
 
-type TransactionRepo interface {
-	CreateTransactions(ctx context.Context, transactions []Transaction) ([]Transaction, error)
-	ListTransactions(ctx context.Context, filter TransactionFilter) ([]Transaction, error)
+type TransactionDA interface {
+	CreateTransactions(ctx context.Context, transactions []model.Transaction) ([]model.Transaction, error)
+	ListTransactions(ctx context.Context, filter model.TransactionFilter) ([]model.Transaction, error)
 }
 
-type TransactionRepoProvider struct {
+type TransactionDAL struct {
 	DB *sql.DB
 }
 
-func (r *TransactionRepoProvider) CreateTransactions(ctx context.Context, transactions []Transaction) ([]Transaction, error) {
+func (r *TransactionDAL) CreateTransactions(ctx context.Context, transactions []model.Transaction) ([]model.Transaction, error) {
 	tx, err := r.DB.BeginTx(ctx, &sql.TxOptions{ReadOnly: false})
 	if err != nil {
 		return nil, err
@@ -47,7 +49,7 @@ func (r *TransactionRepoProvider) CreateTransactions(ctx context.Context, transa
 	return transactions, nil
 }
 
-func (r *TransactionRepoProvider) ListTransactions(ctx context.Context, tf TransactionFilter) ([]Transaction, error) {
+func (r *TransactionDAL) ListTransactions(ctx context.Context, tf model.TransactionFilter) ([]model.Transaction, error) {
 	tx, err := r.DB.BeginTx(ctx, &sql.TxOptions{ReadOnly: true})
 	if err != nil {
 		return nil, err
@@ -91,9 +93,9 @@ func (r *TransactionRepoProvider) ListTransactions(ctx context.Context, tf Trans
 	}
 	defer rows.Close()
 
-	transactions := make([]Transaction, 0)
+	transactions := make([]model.Transaction, 0)
 	for rows.Next() {
-		var t Transaction
+		var t model.Transaction
 		err := rows.Scan(&t.ID, &t.Date, &t.Company, &t.Category, &t.Amount, &t.AccountNumber, &t.Institution, &t.FullDescription, &t.DateAdded)
 		if err != nil {
 			return nil, err

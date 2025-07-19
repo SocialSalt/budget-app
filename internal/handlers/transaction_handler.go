@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/csv"
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/socialsalt/budget-app/cmd/server/models"
+	"github.com/socialsalt/budget-app/internal/model"
 )
 
 func Transaction(w http.ResponseWriter, r *http.Request) {
@@ -41,14 +40,14 @@ func parseDate(rawDate string) (time.Time, error) {
 	return d, nil
 }
 
-func csvToTransactions(data [][]string) ([]models.Transaction, error) {
-	transactions := make([]models.Transaction, len(data))
+func csvToTransactions(data [][]string) ([]model.Transaction, error) {
+	transactions := make([]model.Transaction, len(data))
 	headers := data[0]
 	for i, line := range data {
 		if i == 0 {
 			continue
 		}
-		t := models.Transaction{}
+		t := model.Transaction{}
 		for j, header := range headers {
 			switch header {
 			case "Date":
@@ -105,19 +104,11 @@ func UploadTransaction(w http.ResponseWriter, r *http.Request) {
 		log.Print("Failed to parse csv file: ", err)
 		http.Error(w, fmt.Sprint(err), http.StatusBadRequest)
 	}
-	// fmt.Print(transactions)
-	models.DB.Create(&transactions)
+	fmt.Print(transactions)
+	// model.DB.Create(&transactions)
 }
 
 func GetTransaction(w http.ResponseWriter, r *http.Request) {
-	var transactions []models.Transaction
-	models.DB.Find(&transactions)
-	b, err := json.Marshal(transactions)
-	if err != nil {
-		log.Print("Failed to convert transactions: ", err)
-		http.Error(w, "Failed to convert transactions", http.StatusInternalServerError)
-	}
-	w.Write(b)
 }
 
 func PostTransaction(http.ResponseWriter, *http.Request) {
